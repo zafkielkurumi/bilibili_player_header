@@ -2,15 +2,11 @@
 
 A new Flutter project.
 
-## Getting Started
+## flutter实现B站播放器暂停时的header效果, NestedScrollView使用的flutterCandies全家桶的 [extended_nested_scroll_view](https://github.com/fluttercandies/extended_nested_scroll_view)
 
-This project is a starting point for a Flutter application.
+<div aling="center">
+    <img width="280" src="screenshots/1.gif"/>
+    <img width="280" src="screenshots/2.gif"/>
+</div>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 第二个效果只需要设置maxHieght大于minHeight
