@@ -72,8 +72,9 @@ class _Demo1State extends State<Demo1> with TickerProviderStateMixin {
                 SliverPersistentHeader(
                   delegate: CustomSliverPersistentHeader(
                       child: Container(
-                        height: maxHeight - height,
-                        color: Colors.red,
+                        height: maxHeight - height >= playerHeight ? maxHeight - height :playerHeight ,
+                        // color: Colors.red,
+                        child: Image.asset('assets/images/1.jpg'),
                       ),
                       maxHeight: maxHeight,
                       minHeigth: playerHeight),

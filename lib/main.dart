@@ -45,8 +45,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -63,9 +61,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         children: <Widget>[
-          ListTile(title: Text('demo1'), onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Demo1()));
-          },),
+          ListTile(
+            title: Text('demo1'),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Demo1()));
+            },
+          ),
         ],
       ),
 // This trailing comma makes auto-formatting nicer for build methods.
