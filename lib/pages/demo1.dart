@@ -71,10 +71,15 @@ class _Demo1State extends State<Demo1> with TickerProviderStateMixin {
               return [
                 SliverPersistentHeader(
                   delegate: CustomSliverPersistentHeader(
-                      child: Container(
+                      child: GestureDetector(
+                        onDoubleTap: () {
+                          toPlay();
+                        },
+                        child: Container(
                         height: maxHeight - height >= playerHeight ? maxHeight - height :playerHeight ,
                         // color: Colors.red,
                         child: Image.asset('assets/images/1.jpg'),
+                      ),
                       ),
                       maxHeight: maxHeight,
                       minHeigth: playerHeight),
