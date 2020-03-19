@@ -12,6 +12,7 @@ class _Demo2State extends State<Demo2> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
+      appBar: AppBar(title: Text('点击粒子'),),
       body: Center(
         child: Shimmer(
         child: Container(

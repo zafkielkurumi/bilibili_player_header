@@ -2,7 +2,6 @@ import 'package:bilibili_player_header/model/ball.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-
 class LonelyPlanet extends StatelessWidget {
   final double size = 200;
   @override
@@ -10,22 +9,16 @@ class LonelyPlanet extends StatelessWidget {
     return Stack(
       overflow: Overflow.visible,
       children: <Widget>[
-        Container(
-            decoration: BoxDecoration(border: Border.all()),
-            child: CirclePaint(
-              size: size,
-            )),
-        Container(
-          decoration: BoxDecoration(border: Border.all()),
-          child: RotateView(
-            size: size,
-          ),
+        CirclePaint(
+          size: size,
+        ),
+        RotateView(
+          size: size,
         ),
       ],
     );
   }
 }
-
 
 class CirclePaint extends StatefulWidget {
   final double size;
@@ -42,11 +35,14 @@ class _CirclePaintState extends State<CirclePaint>
   DateTime _preTime;
 
   /// 生成rotateCircle间隔
-  Duration _interval = Duration(milliseconds: 500);
+  Duration _interval = Duration(milliseconds: 700);
+
   /// 每次更新减少的opacity
   double _opacity = 0.008;
+
   /// 圈上小球每次的移动
   double _radians = 0.005;
+
   /// 每次更新圈的半径增加
   double circleR = 0.5;
   @override
@@ -75,7 +71,7 @@ class _CirclePaintState extends State<CirclePaint>
     /// 去除第一个
     if (rotateCircles.isNotEmpty) {
       var first = rotateCircles.first;
-      if (first.opacity <= 0 ) {
+      if (first.opacity <= 0) {
         rotateCircles.remove(first);
       }
     }
@@ -96,7 +92,7 @@ class _CirclePaintState extends State<CirclePaint>
 
     /// 新增
     var now = DateTime.now();
-    if (now.difference(_preTime) > _interval ) {
+    if (now.difference(_preTime) > _interval) {
       _preTime = now;
       var r = size / 2;
       var pos = getPos(r: r, r1: r);
@@ -123,9 +119,9 @@ class _CirclePaintState extends State<CirclePaint>
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        size: Size(widget.size, widget.size),
-        painter: CirclePainter(rotateCircles),
-      );
+      size: Size(widget.size, widget.size),
+      painter: CirclePainter(rotateCircles),
+    );
   }
 }
 
@@ -140,12 +136,15 @@ class CirclePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     rotateCircles.forEach((rotateCircle) {
       var ball = rotateCircle.ball;
-      canvas.drawCircle(Offset(ball.x, ball.y), 5,
-          _paint..color = Colors.red.withOpacity(rotateCircle.opacity)..style=PaintingStyle.fill);
+      canvas.drawCircle(
+          Offset(ball.x, ball.y),
+          5,
+          _paint
+            ..color = Colors.red.withOpacity(rotateCircle.opacity)
+            ..style = PaintingStyle.fill);
       canvas.drawCircle(Offset(size.width / 2, size.width / 2), rotateCircle.r,
           _paint..style = PaintingStyle.stroke);
     });
-
   }
 
   @override
@@ -154,8 +153,6 @@ class CirclePainter extends CustomPainter {
   }
 }
 
-
-
 /// r为圆的半径， r1为正方形长度一半
 /// 根据圆的公式
 getPos({double r, double r1, double angle}) {
@@ -163,11 +160,9 @@ getPos({double r, double r1, double angle}) {
   double x;
   angle ??= math.Random().nextDouble() * math.pi * 2;
   y = r1 + r * math.sin(angle);
-  x = r1 +r*math.cos(angle);
+  x = r1 + r * math.cos(angle);
   return {'angle': angle, 'x': x, 'y': y};
 }
-
-
 
 class RotateCircle {
   double r;

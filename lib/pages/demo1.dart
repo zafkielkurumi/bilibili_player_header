@@ -2,6 +2,7 @@ import 'package:bilibili_player_header/widget/CustomSliverPersistentHeader.dart'
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 
+/// B站播放器效果
 class Demo1 extends StatefulWidget {
   @override
   _Demo1State createState() => _Demo1State();
