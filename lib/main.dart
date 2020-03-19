@@ -1,5 +1,8 @@
 import 'package:bilibili_player_header/pages/demo1.dart';
+import 'package:bilibili_player_header/pages/demo2.dart';
 import 'package:flutter/material.dart';
+
+import 'pages/demo3.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      showSemanticsDebugger: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -66,6 +70,20 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Demo1()));
+            },
+          ),
+          ListTile(
+            title: Text('demo2'),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Demo2()));
+            },
+          ),
+          ListTile(
+            title: Text('Demo3'),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Demo3()));
             },
           ),
         ],
