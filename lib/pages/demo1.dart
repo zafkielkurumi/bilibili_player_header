@@ -76,11 +76,27 @@ class _Demo1State extends State<Demo1> with TickerProviderStateMixin {
                         onDoubleTap: () {
                           toPlay();
                         },
+                        onVerticalDragStart: (DragStartDetails startDetails) {
+                          print('onVerticalDragStart');
+                        },
+                        onVerticalDragUpdate:
+                            (DragUpdateDetails updateDetails) {
+                          print('onVerticalDragUpdate');
+                        },
+                        onHorizontalDragStart: (DragStartDetails startDetails) {
+                          print('onHorizontalDragStart');
+                        },
+                        onHorizontalDragUpdate:
+                            (DragUpdateDetails updateDetails) {
+                          print('onHorizontalDragUpdate');
+                        },
                         child: Container(
-                        height: maxHeight - height >= playerHeight ? maxHeight - height :playerHeight ,
-                        // color: Colors.red,
-                        child: Image.asset('assets/images/1.jpg'),
-                      ),
+                          height: maxHeight - height >= playerHeight
+                              ? maxHeight - height
+                              : playerHeight,
+                          // color: Colors.red,
+                          child: Image.asset('assets/images/1.jpg'),
+                        ),
                       ),
                       maxHeight: maxHeight,
                       minHeigth: playerHeight),
