@@ -1,5 +1,6 @@
 import 'package:bilibili_player_header/pages/demo1.dart';
 import 'package:bilibili_player_header/pages/demo2.dart';
+import 'package:bilibili_player_header/pages/demo4.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/demo3.dart';
@@ -84,6 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Demo3()));
+            },
+          ),
+          ListTile(
+            title: Text('跳动旋律'),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Demo4()));
             },
           ),
         ],
