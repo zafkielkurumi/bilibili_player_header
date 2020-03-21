@@ -14,11 +14,11 @@ class PointHelper {
     x = r1 + r * math.cos(angle);
     return Point(x:x, y: y, angle: angle) ;
   }
+
+   /// https://blog.csdn.net/jiexiaopei_2004/article/details/48496475
   /// 控制点的计算, 可以以此画圆 θ 为圆N等分的角度， 不要大于90度
-  /// https://blog.csdn.net/jiexiaopei_2004/article/details/48496475
-  /// https://www.jianshu.com/p/5198d8aa80c1
   /// (x0,y0),(x3, y3)为起点和终点, (x,y)为圆心
-  /// 贝塞尔曲线画圆，查阅若分成n等分，则曲线端点到最近控制点的最佳距离为(4/3)*((1-cos(θ/2))/sin(θ/2))*r , θ = 2π/n;
+  /// 贝塞尔曲线画圆，若分成n等分，则曲线端点到最近控制点的最佳距离为(4/3)*((1-cos(θ/2))/sin(θ/2))*r , θ = 2π/n;
   /// x1 = x0 - (4/3)*((1-cos(θ/2))/sin(θ/2))*(y0-y); (x ,y)为圆心
   /// y1 =y0 + (4/3)*((1-cos(θ/2))/sin(θ/2))*(x0-x)
   /// x2 =x3 + (4/3)*((1-cos(θ/2))/sin(θ/2))*(y3-y)
