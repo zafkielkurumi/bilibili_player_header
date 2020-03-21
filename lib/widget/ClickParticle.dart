@@ -1,22 +1,22 @@
+import 'dart:async';
+
 import 'package:bilibili_player_header/model/ball.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 
-class Shimmer extends StatefulWidget {
+class ClickParticle extends StatefulWidget {
   final Widget child;
   final Color color;
-  Shimmer({this.child, this.color: Colors.red});
+  ClickParticle({this.child, this.color: Colors.red});
   @override
-  _ShimmerState createState() => _ShimmerState();
+  _ClickParticleState createState() => _ClickParticleState();
 }
 
-class _ShimmerState extends State<Shimmer> with TickerProviderStateMixin {
+class _ClickParticleState extends State<ClickParticle> with TickerProviderStateMixin {
   AnimationController _scaleController;
   Animation<double> _scaleAnimation;
   AnimationController _ballController;
-  Animation<double> _ballAnimation;
-  bool isDown = false;
   List<Ball> balls = [];
   @override
   void initState() {
@@ -27,8 +27,8 @@ class _ShimmerState extends State<Shimmer> with TickerProviderStateMixin {
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     _scaleAnimation = Tween<double>(begin: 0.9, end: 1).animate(
         CurvedAnimation(parent: _scaleController, curve: Curves.elasticOut));
-    // cubic-bezier(0.42, 0, 0.62, 1.01)
-    _ballAnimation = Tween<double>(begin: 0, end: 1).animate(
+
+     Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(curve: Curves.easeInOut, parent: _ballController)
         ..addListener(() {
           updateBalls();
@@ -114,11 +114,22 @@ class _ShimmerState extends State<Shimmer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      // onPointerDown: (PointerDownEvent downEvent) {
+      //   _scaleController.value = 0;
+        
+      // },
+      // onPointerUp: (PointerUpEvent upEvent) {
+      //   initBalls();
+      //   Future.delayed(Duration(milliseconds: 100)).then((d) {
+      //     _scaleController.forward();
+      //   });
+      // },
       onTap: () {
-        _scaleController.value = 0;
-        initBalls();
+         _scaleController.value = 0;
       },
       onTapUp: (TapUpDetails upDetails) {
+        initBalls();
         Future.delayed(Duration(milliseconds: 100)).then((d) {
           _scaleController.forward();
         });

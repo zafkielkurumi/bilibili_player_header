@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bilibili_player_header/util/pointHelper.dart';
 import 'package:bilibili_player_header/widget/Spermcloud/rotateView.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +11,11 @@ class BeatMelody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        
+        Transform.rotate(angle: -math.pi/ 10, child: BeatPaint(size: size),),
         RotateView(
           size: size,
         ),
-        Transform.rotate(angle: -math.pi/ 10, child: BeatPaint(size: size),),
       ],
     );
   }
@@ -35,12 +38,13 @@ class _BeatPaintState extends State<BeatPaint> with TickerProviderStateMixin {
   AnimationController _animationController;
 
   /// 贝塞尔曲线画圆。分成n等分进行
-  int n = 12;
+  int n = 16;
 
   /// 网易云的跳动旋律的圆大约3-4条左右
   List<Path> paths = [];
   DateTime _preTime = DateTime.now();
   DateTime _now = DateTime.now();
+  Timer _timer;
   @override
   void initState() {
     _animationController =
@@ -58,6 +62,10 @@ class _BeatPaintState extends State<BeatPaint> with TickerProviderStateMixin {
         }),
     );
     _animationController.forward();
+    // _timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+    //     updatePaths();
+    //     setState(() {});
+    // });
     super.initState();
   }
 
@@ -104,41 +112,42 @@ class _BeatPaintState extends State<BeatPaint> with TickerProviderStateMixin {
 
     return path;
   }
-
-  updateNextPoint(nextPoint, int i) {
     /// n4|1,  n 8|3  n 16|7
     /// 有部分的变化频繁，变化大，
+  updateNextPoint(nextPoint, int i) {
 
-    /// 间隔500 - 800
-    double distX = (math.Random().nextDouble() + 0.1)* 20;
-    Duration inteval = Duration(milliseconds: math.Random().nextInt(300) + 500);
-    if (i > n / 2 - 2 && i < math.Random().nextInt((n * 3 / 4 - 2).toInt()) +1) {
+    if (i > (n / 2 - 2) && i < math.Random().nextInt((n * 3 / 4 - 2).toInt()) +1) {
+       double distX = (math.Random().nextDouble() + 0.1)* 15;
+    double distY = (math.Random().nextDouble() + 0.1)* 15;
       if (nextPoint.x > r1) {
         nextPoint.x += distX;
       } else {
         nextPoint.x -= distX;
       }
       if (nextPoint.y < r1) {
-        nextPoint.y -= distX;
+        nextPoint.y -= distY;
       } else {
-        nextPoint.y += distX;
+        nextPoint.y += distY;
       }
     } else {
       ///    变化的不大的部分添加间隔
+        Duration inteval = Duration(milliseconds: math.Random().nextInt(300) + 500);
       if (_now.difference(_preTime) > inteval && i != n - 1) {
-        bool b = math.Random().nextBool();
-        double dist = math.Random().nextDouble() * 10;
+        bool b = math.Random().nextDouble() > 0.9 ? true :false;
+        double distx = math.Random().nextDouble() * 10;
+        double disty = math.Random().nextDouble() * 10;
         if (nextPoint.x > r1) {
-          nextPoint.x += b ? dist : 0;
+          nextPoint.x += b ? distx : 0;
         } else {
-          nextPoint.x -= b ? dist : 0;
+          nextPoint.x -= b ? distx : 0;
         }
         if (nextPoint.y < r1) {
-          nextPoint.y -= b ? dist : 0;
+          nextPoint.y -= b ? disty : 0;
         } else {
-          nextPoint.y += b ? dist : 0;
+          nextPoint.y += b ? disty : 0;
         }
       }
+      
     }
   }
 
@@ -155,24 +164,18 @@ class _BeatPaintState extends State<BeatPaint> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        initPoint();
-        paths.add(randomPath());
-        setState(() {});
-      },
-      child: CustomPaint(
+    return CustomPaint(
         size: Size(widget.size, widget.size),
         painter: Beatainter(
           paths: paths,
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -186,7 +189,7 @@ class Beatainter extends CustomPainter {
     Colors.red,
   ];
   Beatainter({this.paths, this.r = 120})
-      : _paint = Paint()..style = PaintingStyle.stroke;
+      : _paint = Paint()..style=PaintingStyle.stroke;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -205,6 +208,6 @@ class Beatainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     // TODO: implement shouldRepaint
-    return true;
+    return false;
   }
 }
