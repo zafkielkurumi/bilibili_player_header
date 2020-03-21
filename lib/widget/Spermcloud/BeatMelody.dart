@@ -164,7 +164,6 @@ class _BeatPaintState extends State<BeatPaint> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
-    _timer.cancel();
     super.dispose();
   }
 
