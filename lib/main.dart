@@ -4,6 +4,7 @@ import 'package:bilibili_player_header/pages/demo4.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/demo3.dart';
+import 'pages/demo5.dart';
 
 void main() => runApp(MyApp());
 
@@ -73,6 +74,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   .push(MaterialPageRoute(builder: (context) => Demo1()));
             },
           ),
+          // ListTile(
+          //   title: Text('B站播放器效果2'),
+          //   onTap: () {
+          //     Navigator.of(context)
+          //         .push(MaterialPageRoute(builder: (context) => Demo5()));
+          //   },
+          // ),
           ListTile(
             title: Text('点击粒子'),
             onTap: () {

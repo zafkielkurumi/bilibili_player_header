@@ -71,6 +71,8 @@ class _Demo1State extends State<Demo1> with TickerProviderStateMixin {
             headerSliverBuilder: (ctx, b) {
               return [
                 SliverPersistentHeader(
+                  // pinned: true,
+                  floating: true,
                   delegate: CustomSliverPersistentHeader(
                       child: GestureDetector(
                         onDoubleTap: () {
