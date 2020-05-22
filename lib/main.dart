@@ -1,10 +1,14 @@
 import 'package:bilibili_player_header/pages/demo1.dart';
 import 'package:bilibili_player_header/pages/demo2.dart';
 import 'package:bilibili_player_header/pages/demo4.dart';
+import 'package:bilibili_player_header/pages/demo6.dart';
+import 'package:bilibili_player_header/pages/demo7.dart';
+import 'package:bilibili_player_header/widget/rippleRoute.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/demo3.dart';
 import 'pages/demo5.dart';
+// import 'package:bilibili_player_header/widget/rippleRoute.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,6 +30,11 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        pageTransitionsTheme:  const PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          },
+        ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -65,22 +74,35 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+      floatingActionButton: Builder(builder: (BuildContext context) {
+        return FloatingActionButton(onPressed: () {
+          Navigator.of(context).push(RippleRoute.fromContext(context, Demo6()));
+        });
+      }),
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('B站播放器效果'),
-            onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Demo1()));
-            },
+              title: Text('B站播放器效果'),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Demo1()));
+              },
+            ),
+          Builder(builder: (BuildContext context) {
+            return ListTile(
+              title: Text('扩散波纹路由动画'),
+              onTap: () {
+                Navigator.of(context)
+                    .push(RippleRoute.fromContext(context, Demo6()));
+              },
+            );
+          }),
+          RipperContainer(
+            widget: Demo6(),
+            child: ListTile(
+              title: Text('扩散波纹路由动画2'),
+            ),
           ),
-          // ListTile(
-          //   title: Text('B站播放器效果2'),
-          //   onTap: () {
-          //     Navigator.of(context)
-          //         .push(MaterialPageRoute(builder: (context) => Demo5()));
-          //   },
-          // ),
           ListTile(
             title: Text('点击粒子'),
             onTap: () {
@@ -89,10 +111,12 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           ListTile(
-            title: Text('孤单星球'),
+            title: Text(
+              '孤单星球3',
+            ),
             onTap: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Demo3()));
+                  .push(RippleRoute.fromContext(context, Demo3()));
             },
           ),
           ListTile(
@@ -100,6 +124,20 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Demo4()));
+            },
+          ),
+          ListTile(
+            title: Text('demo5'),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Demo5()));
+            },
+          ),
+          ListTile(
+            title: Text('demo7下拉'),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Demo7()));
             },
           ),
         ],

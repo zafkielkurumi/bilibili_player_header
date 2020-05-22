@@ -1,13 +1,6 @@
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-class DragInfo {
-  DragInfo(this.downEvent);
-  PointerDownEvent downEvent;
-
-  calcVertical(PointerMoveEvent moveEvent) {}
-  calcHorizontal(PointerMoveEvent moveEvent) {}
-}
+import 'package:flutter/physics.dart';
 
 class Demo5 extends StatefulWidget {
   @override
@@ -15,66 +8,48 @@ class Demo5 extends StatefulWidget {
 }
 
 class _Demo5State extends State<Demo5> {
-  DragInfo _dragInfo;
-  double offsetY = 300;
-  bool canScroll = true;
-  ScrollController _sc = ScrollController();
+  double height = 500;
+
+  getGestures() {
+    final Map<Type, GestureRecognizerFactory> gestures =
+        <Type, GestureRecognizerFactory>{};
+    gestures[VerticalDragGestureRecognizer] =
+        GestureRecognizerFactoryWithHandlers<VerticalDragGestureRecognizer>(
+            () => VerticalDragGestureRecognizer(debugOwner: this),
+            (VerticalDragGestureRecognizer instance) {
+      // instance.isFlingGesture(estimate)
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        child: Stack(
-        // fit: StackFit.expand,
-        alignment: Alignment.bottomLeft,
+      body: Stack(
         children: <Widget>[
-          Positioned(
-              top: 0,
-              child: Container(
-                height: 300,
-                child: GestureDetector(
-                  onTap: () {
-                    print('tag');
-                  },
-                  onHorizontalDragUpdate: (DragUpdateDetails updateDetails) {
-                    print('ipdate');
-                  },
-                  child: Image.asset(
-                    'assets/images/1.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              )),
+          GestureDetector(),
           Listener(
-            onPointerDown: (PointerDownEvent downEvent) {
-              _dragInfo = DragInfo(downEvent);
-            },
-            onPointerMove: (PointerMoveEvent moveEvent) {
-              offsetY -= moveEvent.delta.dy;
-              offsetY  = offsetY >= 600 ? 600 : offsetY;
-              if (offsetY < 600) {
-                _sc.jumpTo(0);
-              }
-              setState(() {
-               
-              });
-            },
+            
+            // behavior: HitTestBehavior.translucent,
+            // onVerticalDragUpdate: (DragUpdateDetails updateDetails) {
+            //   // debugPrint(updateDetails.toString());
+            //   height += updateDetails.delta.dy;
+            //   setState(() {});
+            // },
+            // onVerticalDragEnd: (DragEndDetails endDetails) {
+            //   print(endDetails.velocity);
+            //   print('endDetails.velocity');
+            //   print(endDetails.primaryVelocity);
+            //   print('end');
+            // },
             child: Container(
-              height: offsetY,
+              height: height,
               color: Colors.red,
               child: ListView(
-                controller: _sc,
-                children: List.generate(50, (index) {
-                  return ListTile(
-                    title: Text('$index'),
-                  );
-                }),
+                children: List.filled(100, ListTile(title: Text('data'),)),
               ),
             ),
           )
-
         ],
-      ),
       ),
     );
   }
